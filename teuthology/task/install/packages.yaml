@@ -29,7 +29,7 @@ ceph:
   - ceph-fuse
   - cephfs-java
   - libcephfs_jni1
-  - libcephfs1
+  - libcephfs2
   - librados2
   - librbd1
   - python-ceph

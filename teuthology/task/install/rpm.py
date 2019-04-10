@@ -251,8 +251,7 @@ def _yum_fix_repo_host(remote, project):
     Update the hostname to reflect the gitbuilder_host setting.
     """
     # Skip this bit if we're not using gitbuilder
-    if not isinstance(packaging.get_builder_project(),
-                      packaging.GitbuilderProject):
+    if teuth_config._defaults['use_shaman']:
         return
     old_host = teuth_config._defaults['gitbuilder_host']
     new_host = teuth_config.gitbuilder_host
@@ -264,6 +263,8 @@ def _yum_fix_repo_host(remote, project):
         args=[
             'if', 'test', '-f', repo_path, run.Raw(';'), 'then',
             'sudo', 'sed', '-i', '-e', run.Raw(host_sed_expr),
+            '-e',
+            's/gpgcheck=1/gpgcheck=0/',
             repo_path, run.Raw(';'), 'fi']
     )
 
